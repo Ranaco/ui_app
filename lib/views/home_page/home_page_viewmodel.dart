@@ -10,10 +10,23 @@ import '../../models/image_api_model.dart';
 
 class HomePageViewModel extends BaseViewModel {
   String forNow = "hello";
-  final AppRouter appRouter = locator<AppRouter>();
+  final AppRouter _appRouter = locator<AppRouter>();
   List<ImageHandleApi> imageList = [];
+  String heart = "heart";
+  double? heartSize = 30;
 
   var rand;
+
+  likeThePic() {
+    heart = 'heart-fill';
+    heartSize = 25;
+    notifyListeners();
+  }
+
+  removeLike() {
+    heart = 'heart';
+    notifyListeners();
+  }
 
   fetchData() async {
     rand = Random().nextInt(99);
@@ -31,5 +44,9 @@ class HomePageViewModel extends BaseViewModel {
   changeRandomNumber() {
     rand = Random().nextInt(99);
     notifyListeners();
+  }
+
+  popHomePageView() {
+    _appRouter.pop();
   }
 }

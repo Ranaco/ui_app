@@ -24,6 +24,7 @@ class HomePageView extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
+                      color: Colors.blue,
                       image: DecorationImage(
                           image: NetworkImage(
                               model.imageList[model.rand].download_url),
@@ -33,7 +34,9 @@ class HomePageView extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
                     leading: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        model.popHomePageView();
+                      },
                       child: SvgPicture.asset(
                         'assets/icons/arrow_left.svg',
                         color: Colors.white,
@@ -74,11 +77,19 @@ class HomePageView extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 30.0),
-                            child: SvgPicture.asset(
-                              'assets/icons/heart.svg',
-                              color: Colors.white,
-                              height: 30,
-                              width: 30,
+                            child: GestureDetector(
+                              onTap: () {
+                                model.likeThePic();
+                              },
+                              onDoubleTap: () {
+                                model.removeLike();
+                              },
+                              child: SvgPicture.asset(
+                                'assets/icons/${model.heart}.svg',
+                                color: Colors.white,
+                                height: model.heartSize,
+                                width: model.heartSize,
+                              ),
                             ),
                           )
                         ],
@@ -136,9 +147,11 @@ class HomePageView extends StatelessWidget {
                                       height: 50,
                                       width: 120,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.pink.withOpacity(0.7)),
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20),
+                                              bottomRight: Radius.circular(20)),
+                                          color: Colors.red.shade600),
                                       child: const Center(
                                         child: Text(
                                           "Next",
