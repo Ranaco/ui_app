@@ -1,13 +1,9 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
 class ImageHandleApi {
   String id;
   String author;
   int width;
   int height;
-  int download_url;
+  String download_url;
   ImageHandleApi(
       {required this.id,
       required this.author,
@@ -34,4 +30,8 @@ class ImageHandleApi {
     };
   }
 
+  @override
+  String toString() {
+    return ('author: $author, id: $id, download_url: $download_url, width: $width, height: $height');
+  }
 }
