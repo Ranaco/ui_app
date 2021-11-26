@@ -8,7 +8,8 @@ import 'package:stacked/stacked.dart';
 import 'package:ui_app/views/home_page/home_page_viewmodel.dart';
 
 class HomePageView extends StatelessWidget {
-  const HomePageView({Key? key}) : super(key: key);
+  const HomePageView({Key? key, required this.index}) : super(key: key);
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +27,10 @@ class HomePageView extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.blue,
                       image: DecorationImage(
-                          image: NetworkImage(
-                              model.imageList[model.rand].download_url),
+                          image: NetworkImage(model
+                              .imageList[
+                                  model.rand]
+                              .download_url),
                           fit: BoxFit.fill)),
                 ),
                 Scaffold(
@@ -122,6 +125,7 @@ class HomePageView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30),
                                 color: Colors.white.withOpacity(0.15)),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(
                                   height: 15,
@@ -139,10 +143,37 @@ class HomePageView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 215, top: 90),
-                                  child: GestureDetector(
-                                    onTap: () => model.changeRandomNumber(),
+                                const SizedBox(
+                                  height: 95,
+                                ),
+                                Row(children: [
+                                  const SizedBox(width: 10),
+                                  GestureDetector(
+                                    onTap: () => model.previousRandomNumber(),
+                                    child: Container(
+                                      height: 50,
+                                      width: 120,
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20),
+                                              bottomLeft: Radius.circular(20)),
+                                          color: Colors.red.shade600),
+                                      child: const Center(
+                                        child: Text(
+                                          "Previous",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 105,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => model.nextRandomNumber(),
                                     child: Container(
                                       height: 50,
                                       width: 120,
@@ -161,8 +192,8 @@ class HomePageView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )
+                                  )
+                                ]),
                               ],
                             )),
                       )

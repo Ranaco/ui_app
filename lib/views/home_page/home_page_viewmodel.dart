@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_app/app/app.locator.dart';
@@ -14,6 +15,7 @@ class HomePageViewModel extends BaseViewModel {
   List<ImageHandleApi> imageList = [];
   String heart = "heart";
   double? heartSize = 30;
+  int? index;
 
   var rand;
 
@@ -41,12 +43,26 @@ class HomePageViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  changeRandomNumber() {
-    rand = Random().nextInt(99);
+  previousRandomNumber() {
+    if (rand > 0) {
+      rand--;
+    } else if (rand == 0) {
+      rand = 99;
+    }
+    notifyListeners();
+  }
+
+
+  nextRandomNumber() {
+    if (rand < 99) {
+      rand++;
+    } else if (rand == 99) {
+      rand = 0;
+    }
     notifyListeners();
   }
 
   popHomePageView() {
-    _appRouter.pop();
+    _appRouter.navigate(StartPageRoute());
   }
 }

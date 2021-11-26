@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:ui_app/constants.dart';
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  await Supabase.initialize(anonKey: API_KEY, url: API_LINK);
   setupLocator();
   runApp(const Main());
 }
